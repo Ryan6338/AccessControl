@@ -48,7 +48,7 @@ void readTag() {
     // STX Byte found, dump the rest out until ETX byte. Yes this is blocking but we need to dedicate to reading now.
     Serial.readBytesUntil(endChar, cardBytes, 11);
     flushSerial();
-    String cardSt fring = String(cardBytes);
+    String cardString = String(cardBytes);
 
     log("[AUTH] Card String:" + cardString);
     cardString = cardString.substring(4,10);

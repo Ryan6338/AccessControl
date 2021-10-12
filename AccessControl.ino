@@ -29,13 +29,14 @@
 #include <WebSocketsServer.h>
 #include <WiFiClientSecureBearSSL.h>
 // Editable config values. Example given below but secrets should be stored outside Git's prying eyes.
-/* const char* ssid = ""; // Wifi SSID
-  const char* password = ""; // Wifi Password
-  const char* host = ""; // Host URL
-  const char* secret = ""; // Secret to talk to the Host on.
-  const char* deviceName = ""; // Device name. DOOR-DoorName or INT-InterlockName
-  const char* devicePassword = ""; // Password for OTA on device.
-*/
+const char* ssid = ""; // Wifi SSID
+const char* password = ""; // Wifi Password
+const char* host = ""; // Host URL
+const char* secret = ""; // Secret to talk to the Host on.
+const char* deviceName = ""; // Device name. DOOR-DoorName or INT-InterlockName
+const char* devicePassword = ""; // Password for OTA on device.
+const char* deviceType = "";
+  
 uint8_t checkinRate = 60; // How many seconds between standard server checkins.
 uint8_t sessionCheckinRate = 60; // How many seconds between interlock session checkins.
 uint8_t contact = 0; // Set default switch state, 1 for doors that are permanantly powered/fail-open.
@@ -75,7 +76,8 @@ void ICACHE_RAM_ATTR log(String entry) {
 #ifdef SERIALDEBUG
   Serial.println(entry);
 #endif
-  webSocket.broadcastTXT(String(millis()) + " " + entry);
+  String msg = String(millis()) + " " + entry;
+  webSocket.broadcastTXT(msg);
   delay(10);
 }
 
